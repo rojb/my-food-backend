@@ -26,7 +26,7 @@ import { TrackingModule } from './modules/tracking/tracking.module';
       password: String(process.env.DB_PASSWORD),
       database: process.env.DB_NAME,
       entities: [__dirname + '/modules/**/entities/*.entity{.ts,.js}'],
-      synchronize: false,
+      synchronize: true,
     }),
     AddressesModule,
     CustomersModule,

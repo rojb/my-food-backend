@@ -5,6 +5,6 @@ export class OrderStatus {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({ type: 'text', nullable: false })
     name: string;
 }

@@ -1,4 +1,4 @@
-import { CustomerAddress } from "src/modules/addresses/entities/customer-address";
+import { CustomerAddress } from "src/modules/addresses/entities/customer-address.entity";
 import { Order } from "src/modules/orders/entities/order.entity";
 import { FavoriteCustomerProduct } from "src/modules/products/entities/favorite-customer-products.entity";
 import { ProductRating } from "src/modules/products/entities/product-rating.entity";

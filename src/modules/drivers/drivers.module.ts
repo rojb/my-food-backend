@@ -9,5 +9,6 @@ import { DriverLocation } from './entities/driver-location.entity';
   imports: [TypeOrmModule.forFeature([Driver, DriverLocation])],
   controllers: [DriversController],
   providers: [DriversService],
+  exports: [DriversService]
 })
 export class DriversModule { }

@@ -1,8 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Customer } from './entities/customer.entity';
-import { CustomerAddress } from '../addresses/entities/customer-address';
+import { CustomerAddress } from '../addresses/entities/customer-address.entity';
 
 @Injectable()
 export class CustomersService {
@@ -45,6 +45,10 @@ export class CustomersService {
 
   async addAddress(customerId: number, addressId: number) {
     const customer = await this.findById(customerId);
+    
+    if (!customer) {
+      throw new NotFoundException(`Cliente ${customerId} no encontrado`);
+    }
 
     const customerAddress = this.customerAddressRepository.create({
       customerId,

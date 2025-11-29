@@ -1,6 +1,6 @@
-import { CustomerAddress } from "src/modules/addresses/entities/customer-address";
+import { CustomerAddress } from "src/modules/addresses/entities/customer-address.entity";
 import { Customer } from "src/modules/customers/entities/customer.entity";
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { OrderProduct } from "./order-products.entity";
 import { OrderStatus } from "./order-status.entity";
 import { Delivery } from "src/modules/deliveries/entities/delivery.entity";
@@ -32,7 +32,7 @@ export class Order {
     customer: Customer;
 
     @ManyToOne(() => CustomerAddress, { cascade: true })
-
+    @JoinColumn({ name: 'customer_address_id' })
     customerAddress: CustomerAddress;
 
     @ManyToOne(() => OrderStatus)
