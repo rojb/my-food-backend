@@ -12,6 +12,7 @@ import { OrdersModule } from './modules/orders/orders.module';
 import { DriversModule } from './modules/drivers/drivers.module';
 import { DeliveriesModule } from './modules/deliveries/deliveries.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { TrackingModule } from './modules/tracking/tracking.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -25,7 +26,7 @@ import { AuthModule } from './modules/auth/auth.module';
       password: String(process.env.DB_PASSWORD),
       database: process.env.DB_NAME,
       entities: [__dirname + '/modules/**/entities/*.entity{.ts,.js}'],
-      synchronize: true,
+      synchronize: false,
     }),
     AddressesModule,
     CustomersModule,
@@ -35,7 +36,8 @@ import { AuthModule } from './modules/auth/auth.module';
     OrdersModule,
     DriversModule,
     DeliveriesModule,
-    AuthModule
+    AuthModule,
+    TrackingModule
   ],
   controllers: [AppController],
   providers: [AppService],
