@@ -1,5 +1,5 @@
 import { Customer } from "src/modules/customers/entities/customer.entity";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Address } from "./address.entity";
 
 @Entity('customer_addresses')
@@ -14,8 +14,10 @@ export class CustomerAddress {
     addressId: number;
 
     @ManyToOne(() => Customer, (customer) => customer.customerAddresses)
+    @JoinColumn({ name: 'customer_id' })
     customer: Customer;
 
     @ManyToOne(() => Address)
+    @JoinColumn({ name: 'address_id' })
     address: Address;
 }

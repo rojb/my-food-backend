@@ -35,7 +35,7 @@ export class OrdersService {
 
     const order = this.orderRepository.create({
       customerId,
-      customerAddressId: createOrderDto.customerAddressId,
+      addressId: createOrderDto.addressId,
       total,
       deliveryPrice: createOrderDto.deliveryPrice,
       orderStatusId: createOrderDto.orderStatusId || 1,
@@ -59,7 +59,7 @@ export class OrdersService {
       .leftJoinAndSelect('order.orderProducts', 'orderProducts')
       .leftJoinAndSelect('orderProducts.product', 'product')
       .leftJoinAndSelect('order.orderStatus', 'orderStatus')
-      .leftJoinAndSelect('order.customerAddress', 'customerAddress');
+      .leftJoinAndSelect('order.address', 'address');
 
     if (customerId) {
       query.where('order.customerId = :customerId', { customerId });
@@ -76,7 +76,7 @@ export class OrdersService {
         'orderProducts',
         'orderProducts.product',
         'orderStatus',
-        'customerAddress',
+        'address',
         'deliveries',
         'deliveries.driver',
       ],

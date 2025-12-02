@@ -28,24 +28,24 @@ export class OrdersController {
   constructor(private ordersService: OrdersService) { }
 
   @Post()
-  @UseGuards(JwtAuthGuard)
+
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Crear nueva orden' })
   @ApiResponse({ status: 201, description: 'Orden creada exitosamente' })
   create(
     @Body() createOrderDto: CreateOrderDto,
-    @CurrentCustomer() customer: Customer,
+
   ) {
-    return this.ordersService.create(createOrderDto, customer.id);
+    return this.ordersService.create(createOrderDto, createOrderDto.customerId);
   }
 
-  @Get()
-  @UseGuards(JwtAuthGuard)
+  @Get('/customer/:customerId')
+
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Obtener órdenes del cliente' })
   @ApiResponse({ status: 200, description: 'Lista de órdenes' })
-  findAll(@CurrentCustomer() customer: Customer) {
-    return this.ordersService.findAll(customer.id);
+  findAll(@Param('customerId') customerId: number,) {
+    return this.ordersService.findAll(customerId);
   }
 
   @Get('all')
@@ -56,7 +56,7 @@ export class OrdersController {
   }
 
   @Get(':id')
-  @UseGuards(JwtAuthGuard)
+
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Obtener orden por ID' })
   @ApiResponse({ status: 200, description: 'Datos de la orden' })
@@ -65,7 +65,7 @@ export class OrdersController {
   }
 
   @Patch(':id')
-  @UseGuards(JwtAuthGuard)
+
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Actualizar orden' })
   @ApiResponse({ status: 200, description: 'Orden actualizada' })
@@ -77,7 +77,7 @@ export class OrdersController {
   }
 
   @Delete(':id')
-  @UseGuards(JwtAuthGuard)
+
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Eliminar orden' })
   @ApiResponse({ status: 200, description: 'Orden eliminada' })

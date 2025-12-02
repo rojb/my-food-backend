@@ -25,7 +25,7 @@ export class AddressesController {
   constructor(private addressesService: AddressesService) { }
 
   @Post()
-  @UseGuards(JwtAuthGuard)
+  
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Crear nueva dirección' })
   @ApiResponse({ status: 201, description: 'Dirección creada' })
@@ -48,7 +48,7 @@ export class AddressesController {
   }
 
   @Patch(':id')
-  @UseGuards(JwtAuthGuard)
+  
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Actualizar dirección' })
   @ApiResponse({ status: 200, description: 'Dirección actualizada' })
@@ -60,7 +60,7 @@ export class AddressesController {
   }
 
   @Delete(':id')
-  @UseGuards(JwtAuthGuard)
+  
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Eliminar dirección' })
   @ApiResponse({ status: 200, description: 'Dirección eliminada' })

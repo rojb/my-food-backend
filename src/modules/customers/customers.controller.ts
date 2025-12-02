@@ -31,7 +31,7 @@ export class CustomersController {
   }
 
   @Get('profile')
-  @UseGuards(JwtAuthGuard)
+
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Obtener perfil del cliente actual' })
   @ApiResponse({ status: 200, description: 'Perfil del cliente' })
@@ -47,7 +47,7 @@ export class CustomersController {
   }
 
   @Get(':customerId/addresses')
-  @UseGuards(JwtAuthGuard)
+
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Obtener direcciones del cliente' })
   @ApiResponse({ status: 200, description: 'Direcciones del cliente' })
@@ -56,7 +56,7 @@ export class CustomersController {
   }
 
   @Post(':customerId/addresses/:addressId')
-  @UseGuards(JwtAuthGuard)
+
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Agregar dirección al cliente' })
   @ApiResponse({ status: 201, description: 'Dirección agregada' })
@@ -68,7 +68,7 @@ export class CustomersController {
   }
 
   @Delete(':customerId/addresses/:addressId')
-  @UseGuards(JwtAuthGuard)
+
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Remover dirección del cliente' })
   @ApiResponse({ status: 200, description: 'Dirección removida' })

@@ -6,7 +6,11 @@ import { OrderProductDto } from "src/modules/orders/dto/order-product.dto";
 export class CreateOrderDto {
     @ApiProperty({ example: 1 })
     @IsNumber()
-    customerAddressId: number;
+    addressId: number;
+    
+    @ApiProperty({ example: 1 })
+    @IsNumber()
+    customerId: number;
 
     @ApiProperty({ example: 5.99 })
     @IsNumber()

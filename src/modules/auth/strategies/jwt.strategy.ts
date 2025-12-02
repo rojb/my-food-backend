@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { AuthService } from '../auth.service';
@@ -13,11 +13,22 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         });
     }
 
-    async validate(payload: any) {
-        const customer = await this.authService.validateCustomer(payload.sub);
-        if (!customer) {
-            throw new Error('Invalid token');
+async validate(payload: any) {
+        console.log('🔍 JWT Payload:', payload);
+        
+        try {
+            const customer = await this.authService.validateCustomer(payload.sub);
+            console.log('✅ Customer encontrado:', customer);
+            
+            if (!customer) {
+                console.log('❌ Customer no encontrado para ID:', payload.sub);
+                throw new UnauthorizedException('Customer not found');
+            }
+            
+            return customer;
+        } catch (error) {
+            console.error('❌ Error en validación:', error.message);
+            throw new UnauthorizedException('Invalid token');
         }
-        return customer;
     }
 }

@@ -7,6 +7,12 @@ export class CreateDriverDto {
     @IsNotEmpty()
     name: string;
 
+    @ApiProperty({ example: 'mail@mail.com' })
+    @IsString()
+    @IsNotEmpty()
+    email: string;
+
+
     @ApiProperty({ example: 'Perez' })
     @IsString()
     @IsNotEmpty()

@@ -4,6 +4,7 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColum
 import { OrderProduct } from "./order-products.entity";
 import { OrderStatus } from "./order-status.entity";
 import { Delivery } from "src/modules/deliveries/entities/delivery.entity";
+import { Address } from "src/modules/addresses/entities/address.entity";
 
 @Entity('orders')
 export class Order {
@@ -22,20 +23,22 @@ export class Order {
     @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', name: 'date' })
     date: Date;
 
-    @Column({ name: 'customer_address_id' })
-    customerAddressId: number;
+    @Column({ name: 'address_id' })
+    addressId: number;
 
     @Column({ name: 'order_status_id', default: 1 })
     orderStatusId: number;
 
     @ManyToOne(() => Customer, (customer) => customer.orders)
+    @JoinColumn({ name: 'customer_id' })
     customer: Customer;
 
-    @ManyToOne(() => CustomerAddress, { cascade: true })
-    @JoinColumn({ name: 'customer_address_id' })
-    customerAddress: CustomerAddress;
+    @ManyToOne(() => Address, { cascade: true })
+    @JoinColumn({ name: 'address_id' })
+    address: Address;
 
     @ManyToOne(() => OrderStatus)
+     @JoinColumn({ name: 'order_status_id' })
     orderStatus: OrderStatus;
 
     @OneToMany(() => OrderProduct, (op) => op.order, { cascade: true })

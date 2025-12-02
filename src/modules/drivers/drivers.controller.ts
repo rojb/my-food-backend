@@ -44,7 +44,7 @@ export class DriversController {
   }
 
   @Delete(':id')
-  @UseGuards(JwtAuthGuard)
+ 
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Eliminar conductor' })
   @ApiResponse({ status: 200, description: 'Conductor eliminado' })
