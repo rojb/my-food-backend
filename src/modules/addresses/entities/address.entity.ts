@@ -18,9 +18,6 @@ export class Address {
     @Column('decimal', { precision: 10, scale: 6, name: 'coordinate_y' })
     coordinateY: number;
 
-    @Column({ name: 'address_id' })
-    restaurantId: number;
-
     @ManyToOne(() => Restaurant)
     restaurant: Restaurant;
 }

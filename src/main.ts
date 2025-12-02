@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
+import { SeedService } from './database/seeds/seed.service';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -12,6 +13,11 @@ async function bootstrap() {
       transform: true,
     }),
   );
+
+  if (process.env.NODE_ENV !== 'production') {
+    const seedService = app.get(SeedService);
+    await seedService.seed();
+  }
 
   const config = new DocumentBuilder()
     .setTitle('MyFood API')

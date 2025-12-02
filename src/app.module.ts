@@ -13,6 +13,7 @@ import { DriversModule } from './modules/drivers/drivers.module';
 import { DeliveriesModule } from './modules/deliveries/deliveries.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { TrackingModule } from './modules/tracking/tracking.module';
+import { SeedModule } from './database/seeds/seed.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -37,7 +38,8 @@ import { TrackingModule } from './modules/tracking/tracking.module';
     DriversModule,
     DeliveriesModule,
     AuthModule,
-    TrackingModule
+    TrackingModule,
+    SeedModule
   ],
   controllers: [AppController],
   providers: [AppService],
