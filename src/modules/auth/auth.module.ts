@@ -5,10 +5,11 @@ import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { Customer } from '../customers/entities/customer.entity';
 import { JwtStrategy } from './strategies/jwt.strategy';
+import { Driver } from '../drivers/entities/driver.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Customer]),
+    TypeOrmModule.forFeature([Customer, Driver]),
     JwtModule.register({
       secret: process.env.JWT_SECRET || 'your-secret-key',
       signOptions: { expiresIn: '24h' },

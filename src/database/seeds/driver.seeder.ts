@@ -14,18 +14,21 @@ export class DriverSeeder {
         const drivers = [
             {
                 name: 'Roberto',
+                email:'roberto@mail.com',
                 lastName: 'Martínez',
                 password: 'password123',
                 isAvailable: true,
             },
             {
                 name: 'Felipe',
+                email: 'felipe@mail.com',
                 lastName: 'Rodríguez',
                 password: 'password123',
                 isAvailable: true,
             },
             {
                 name: 'Diego',
+                email: 'diego@mail.com',
                 lastName: 'Fernández',
                 password: 'password123',
                 isAvailable: false,
