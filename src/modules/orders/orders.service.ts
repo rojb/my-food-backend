@@ -6,6 +6,7 @@ import { Order } from './entities/order.entity';
 import { OrderProduct } from './entities/order-products.entity';
 import { Product } from '../products/entities/product.entity';
 import { UpdateOrderDto } from './dto/update-order.dto';
+import { DeliveriesService } from '../deliveries/deliveries.service';
 
 @Injectable()
 export class OrdersService {
@@ -16,12 +17,13 @@ export class OrdersService {
     private orderProductRepository: Repository<OrderProduct>,
     @InjectRepository(Product)
     private productRepository: Repository<Product>,
+    private deliveriesService: DeliveriesService
   ) { }
 
   async create(createOrderDto: CreateOrderDto, customerId: number): Promise<Order> {
     let total = createOrderDto.deliveryPrice;
-
     const orderProducts: any[] = [];
+
     for (const product of createOrderDto.products) {
       const prod = await this.productRepository.findOne({
         where: { id: product.productId },
@@ -30,7 +32,10 @@ export class OrdersService {
         throw new NotFoundException(`Producto ${product.productId} no encontrado`);
       }
       total += Number(prod.price) * product.quantity;
-      orderProducts.push({ productId: product.productId, quantity: product.quantity });
+      orderProducts.push({
+        productId: product.productId,
+        quantity: product.quantity,
+      });
     }
 
     const order = this.orderRepository.create({
@@ -48,6 +53,14 @@ export class OrdersService {
         orderId: savedOrder.id,
         ...op,
       });
+    }
+
+    // 🆕 Iniciar asignación de entrega
+    try {
+      await this.deliveriesService.initiateDeliveryAssignment(savedOrder.id);
+    } catch (error) {
+      console.error('Error al asignar entrega:', error.message);
+      // No lanzar error, la orden se creó pero no hay conductores disponibles
     }
 
     return this.findById(savedOrder.id);

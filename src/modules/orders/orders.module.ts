@@ -8,6 +8,7 @@ import { CustomerAddress } from '../addresses/entities/customer-address.entity';
 import { Delivery } from '../deliveries/entities/delivery.entity';
 import { OrderStatus } from './entities/order-status.entity';
 import { Product } from '../products/entities/product.entity';
+import { DeliveriesModule } from '../deliveries/deliveries.module';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Order,
@@ -15,7 +16,7 @@ import { Product } from '../products/entities/product.entity';
     Delivery,
     CustomerAddress,
     OrderStatus, Product
-  ])],
+  ]), DeliveriesModule],
   controllers: [OrdersController],
   providers: [OrdersService],
 })
